@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import com.csvreader.CsvReader;
 
+import helper.Constants;
+
 /**
  * This is only to read CSV data
  * 
@@ -17,23 +19,47 @@ public class CSVDataProvider {
 	
 	
 	/**
-	 * This method will return csv file path
-	 * @param fileName
-	 * @return
+	 * This method will return test case csv file path
+	 * 
+	 * file separator used so that same code would work in windows m/c where file separator is \
 	 */
 	private static String getPath(String fileName){
-		return System.getProperty("user.dir")+"/src/test/resources/"+fileName;
+		String fileSeparator =  System.getProperty("file.separator");
+		String path = System.getProperty("user.dir")+Constants.TEST_CASES_PATH.replaceAll("/",fileSeparator);
+		return path+fileName;
 	}
 	
 	
-	/**
-	 * This method will read csv and populate Object[][] 2D array 
-	 * @param fileName
-	 */
-	private static void getData(String fileName){
-		int i = 0;
+//	public static Object[][] getCSVData(String fileName){
+//		int i = 0;
+//		try{
+//			data = new Object[2][5]; // row,column
+//			reader = new CsvReader(getPath(fileName));
+//			while(reader.readRecord()){
+//				data[i][0] = reader.get(0);
+//				data[i][1] = reader.get(1);
+//				data[i][2] = reader.get(2);
+//				data[i][3] = reader.get(3);
+//				data[i][4] = reader.get(4);
+//				i++;
+//				
+//			}
+//		}catch(FileNotFoundException e){
+//			e.printStackTrace();
+//		}catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return data;
+//	}
+	
+	//test_id,test_step,suite,action,data
+	public static Object[][] getCSVData(String fileName){
+		
+		int rows = 3;
+		int i = 0; // ignore headers in file
 		try{
-			data = new Object[2][5]; // row,column
+			data = new Object[rows][5]; // row,column
 			reader = new CsvReader(getPath(fileName));
 			while(reader.readRecord()){
 				data[i][0] = reader.get(0);
@@ -42,7 +68,6 @@ public class CSVDataProvider {
 				data[i][3] = reader.get(3);
 				data[i][4] = reader.get(4);
 				i++;
-				
 			}
 		}catch(FileNotFoundException e){
 			e.printStackTrace();
@@ -50,12 +75,8 @@ public class CSVDataProvider {
 			e.printStackTrace();
 		}
 		
-	}
-	
-	
-	public static Object[][] getCSVData(String fileName){
-		getData(fileName);
 		return data;
+		
 	}
 	
 }

@@ -1,3 +1,6 @@
 test_id,test_step,suite,action,data(url-path#content-type#status-code#list_of_parameters_pipe_separated)
-generate_token_accounts_section_1,user sends a GET request,critical,GET,/json/Accounts/#application/json; charset=utf-8#401#Wfsemail:abc@gmail.com|param2:value2
-generate_token_accounts_section_2,user sends a GET request,reg,GET,/xml/Accounts/#application/xml; charset=utf-8#401#Wfsemail:def@gmail.com|param3:value4
+generate_token_accounts_section_1,user sends a GET request,critical,GET,/json/Accounts/#application/json; charset=utf-8#400#Wfsemail:abc@gmail.com!Wfsepassword:x@123
+generate_token_accounts_section_2,user sends a GET request,critical,GET,/json/Accounts/#application/json; charset=utf-8#400#Wfsemail:abc@gmail.com!Wfsepassword:x@123
+generate_token_accounts_section_3,user sends a GET request,critical,GET,/json/Accounts/#application/json; charset=utf-8#400#Wfsemail:abc@gmail.com!Wfsepassword:x@123
+generate_token_accounts_section_4,user sends a GET request,critical,GET,/json/Accounts/#application/json; charset=utf-8#400#Wfsemail:abc@gmail.com!Wfsepassword:x@123
+generate_token_accounts_section_5,user sends a GET request,critical,GET,/json/Accounts/#application/json; charset=utf-8#400#Wfsemail:abc@gmail.com!Wfsepassword:x@123

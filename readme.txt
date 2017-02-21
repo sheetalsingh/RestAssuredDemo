@@ -9,7 +9,7 @@ To-do:
 3. handle a case where multiple get request are there with different parameters count -
 4. headers are specific to environment like qa,dev,prod need to handle that case -  : DONE
 5. one flow testing of post-get-delete for single/multiple links 
-6. create dynamic data provider array. currently [2][5] is hard-coded -
+6. create dynamic data provider array. currently [2][5] is hard-coded - DONE
 7. report - allure or any other
 
 

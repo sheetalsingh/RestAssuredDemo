@@ -1,0 +1,3 @@
+test_id,test_step,suite,action,data(url-path#content-type#status-code#list_of_parameters_pipe_separated)
+get1,get req by user,critical,GET,/json/Accounts/#application/json; charset=utf-8#401#Wfsemail:abc@gmail.com|param2:value2
+get2,get req by user,reg,GET,/xml/Accounts/#application/xml; charset=utf-8#401#Wfsemail:def@gmail.com|param3:value4

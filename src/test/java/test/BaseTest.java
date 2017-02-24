@@ -4,10 +4,11 @@ import org.testng.annotations.*;
 import data.DataProviderClass;
 import helper.ReadPropertyFile;
 import helper.RestMe;
-import io.restassured.RestAssured;
+//import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import static io.restassured.RestAssured.*;
+//import static io.restassured.RestAssured.*;
 
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -22,21 +23,14 @@ public class BaseTest {
 	ReadPropertyFile readPropFile;
 	Map<String, String> propertyMap;
 	String headerkey1,headervalue1,headerkey2,headervalue2; 
-	
+	String whatToRun;
 	
 	@BeforeSuite
 	public void setup(){
 		readPropFile = new ReadPropertyFile();
 		propertyMap = readPropFile.getMap();
 		restme =  new RestMe(propertyMap);
-		
-		
-		//initialize base uri and headers values
-//		RestAssured.baseURI = propertyMap.get("baseuri") + propertyMap.get("basepath");
-//		headerkey1 = propertyMap.get("headerkey1");
-//		headervalue1 = propertyMap.get("headervalue1");
-//		headerkey2 = propertyMap.get("headerkey2");
-//		headervalue2 = propertyMap.get("headervalue2");			
+		whatToRun = propertyMap.get("whattorun");	
 	}
 	
 	
@@ -48,23 +42,57 @@ public class BaseTest {
 	
 	
 	/**
-	 * test_id,test_step,suite,action,data(url-path#content-type#status-code#list_of_parameters_pipe_separated)
+	 * csv format: test_id,test_step,suite,action,data(url-path#content-type#status-code#list_of_parameters_pipe_separated)
+	 * 
+	 * 
+	 * This method will get data from Data Provider for all the cases present in csv file
+	 * Based on 'whattorun' value in config.properties, performAction() method will be called
 	 */
 	@Test(dataProvider = "csvdataprovider",dataProviderClass=DataProviderClass.class)
-	public void testGetRequestNew(String test_id, String test_step, String suite, String action, String data){
+	public void testRequest(String test_id, String test_step, String suite, String action, String data){
 		
-		switch (action.toUpperCase()) {
-			case "GET": restme.getMe(data);break;
-			case "POST": restme.postMe(data);break;
-			case "DELETE":restme.deleteMe(data); break;
-			default: throw new IllegalStateException("Given action name(http methods) in csv are not matching with any of the existing action name");
+		if(whatToRun.equals("suite")){
+			String [] testsuitestorun = propertyMap.get("testsuitestorun").split(",");
+			boolean isRunSuitePresent = Arrays.asList(testsuitestorun).contains(suite);
+			if(isRunSuitePresent){
+				performAction(action, data);
+			}else{
+				System.out.println("Dont report this @test");
+			}
+			
+		}else if (whatToRun.equals("testids")) {
+			String [] testidstorun = propertyMap.get("testidstorun").split(",");
+			boolean isRunTestIdPresent = Arrays.asList(testidstorun).contains(test_id);
+			if(isRunTestIdPresent){
+				performAction(action, data);
+			}else{
+				System.out.println("Dont report this @test");
+			}
+			
+		}else{
+			performAction(action, data);
 		}
-		
-		
 	}
 	
 	
 	
+	/**
+	 * This method get action,data values from @Test testRequest method 
+	 * and perform actual call to endpoints
+	 * 
+	 * @param action : GET, POST etc
+	 * @param data: url, status code, parameters etc
+	 */
+	public void performAction(String action, String data){
+		
+		switch (action.toUpperCase()) {
+		case "GET": restme.getMe(data);break;
+		case "POST": restme.postMe(data);break;
+		case "DELETE":restme.deleteMe(data); break;
+		default: throw new IllegalStateException("Given action name(http methods) in csv are not matching with any of the existing action name");
+		}
+	
+	}
 	
 	
 	
@@ -72,25 +100,3 @@ public class BaseTest {
 }
 
 
-
-
-
-
-
-
-//@Test(dataProvider = "csvdataprovider",dataProviderClass=DataProviderClass.class)
-//public void testGetRequest(String endpoint, String paramKey, String paramValue, String contentType, String statusCode){
-//	
-//	response=
-//			given().
-//				headers(headerkey1, headervalue1).
-//				headers(headerkey2, headervalue2).
-//				param(paramKey,paramValue).
-//			when().
-//				get(endpoint).
-//			then().
-//				statusCode(Integer.parseInt(statusCode)).
-//				contentType(contentType).
-//			extract().
-//				response();
-//}

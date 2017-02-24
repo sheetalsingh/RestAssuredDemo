@@ -33,9 +33,10 @@ public class CSVDataProvider {
 	 * file separator is \
 	 */
 	private static String getPath(String fileName) {
-		String fileSeparator = System.getProperty("file.separator");
-		String path = System.getProperty("user.dir") + Constants.TEST_CASES_PATH.replaceAll("/", fileSeparator);
-		return path + fileName;
+		String path = System.getProperty("user.dir") + Constants.TEST_CASES_PATH;
+		String absolutePath = path + fileName;
+		System.out.println("Input test case file path: "+absolutePath);
+		return absolutePath;
 	}
 
 	

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -44,8 +45,13 @@ public class ReadPropertyFile {
 			e.printStackTrace();
 		}
 
+		//Java - 8
 		propMap.putAll(properties.entrySet().stream()
 				.collect(Collectors.toMap(e -> e.getKey().toString(), e -> e.getValue().toString())));
+		//Java - 7
+//		for (final Entry<Object, Object> entry : properties.entrySet()) {
+//			propMap.put((String) entry.getKey(), (String) entry.getValue());
+//		}
 	}
 
 	

@@ -1,5 +1,12 @@
 #Rest Assured Demo Framework 
 
+#How to run
+1. Using maven
+mvn clean test site
+
+
+2. Normal way using testng
+testng.xml
 
 
 
@@ -11,9 +18,9 @@ To-do:
 5. run case as per suite/ test case name - read from config file  - DONE
 6. create dynamic data provider array. currently [2][5] is hard-coded - DONE
 7. handle multiple parameters using HashMap  - DONE
-8. run post-get-delete cases > handle in present case only
-9. report - allure or any other
-
+8. report - allure or any other - DONE
+9. run post-get-delete cases > handle in present case only
+10. reporting when particular cases/suite run
 
 
 #Info:

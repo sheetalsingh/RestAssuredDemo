@@ -7,6 +7,16 @@
 	<name>restapi</name>
 	<description>rest api testing</description>
 
+	<!-- maven.compiler set to 1.8 so that java 8 features like lambda exp can be used -->
+	<properties>
+		<testng.version>6.10</testng.version>
+		<aspectj.version>1.8.9</aspectj.version>
+		<allure.version>1.4.23</allure.version>
+		<alluremvn.version>2.5</alluremvn.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
+
 
 	<dependencies>
 		<dependency>
@@ -35,7 +45,7 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>6.10</version>
+			<version>${testng.version}</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.hamcrest/java-hamcrest -->
@@ -61,6 +71,76 @@
 		</dependency>
 
 
+		<!-- https://mvnrepository.com/artifact/ru.yandex.qatools.allure/allure-testng-adaptor -->
+		<dependency>
+			<groupId>ru.yandex.qatools.allure</groupId>
+			<artifactId>allure-testng-adaptor</artifactId>
+			<version>${allure.version}</version>
+		</dependency>
+
+
+		<!-- https://mvnrepository.com/artifact/ru.yandex.qatools.allure/allure-maven-plugin -->
+		<dependency>
+			<groupId>ru.yandex.qatools.allure</groupId>
+			<artifactId>allure-maven-plugin</artifactId>
+			<version>${alluremvn.version}</version>
+		</dependency>
+
 	</dependencies>
+
+
+
+
+
+
+
+
+
+
+	<!-- For Allure reporting -->
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+					<argLine>
+						-javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
+					</argLine>
+					<!-- commented as correct count is not coming <properties> <property> 
+						<name>listener</name> <value>ru.yandex.qatools.allure.testng.AllureTestListener</value> 
+						</property> </properties> -->
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjweaver</artifactId>
+						<version>${aspectj.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+	<reporting>
+		<excludeDefaults>true</excludeDefaults>
+		<plugins>
+			<plugin>
+				<groupId>ru.yandex.qatools.allure</groupId>
+				<artifactId>allure-maven-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<outputDirectory>${basedir}/target/allure-reports/</outputDirectory>
+					<allureResultsDirectory>${basedir}/target/allure-results</allureResultsDirectory>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+		<outputDirectory>${basedir}/site</outputDirectory>
+	</reporting>
 
 </project>

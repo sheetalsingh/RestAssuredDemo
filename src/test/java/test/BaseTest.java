@@ -7,6 +7,12 @@ import helper.RestMe;
 //import io.restassured.RestAssured;
 import io.restassured.response.Response;
 //import static io.restassured.RestAssured.*;
+import ru.yandex.qatools.allure.annotations.Description;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Severity;
+import ru.yandex.qatools.allure.annotations.Stories;
+import ru.yandex.qatools.allure.annotations.Title;
+import ru.yandex.qatools.allure.model.SeverityLevel;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -16,6 +22,8 @@ import java.util.Map;
  *	assumptions:
  *	headers will remain fixed for all calls
  */
+@Title("Base Test Class")
+@Description("Description: Common class for all API tests")
 public class BaseTest {
 	RestMe restme;
 	Response response;
@@ -48,6 +56,11 @@ public class BaseTest {
 	 * This method will get data from Data Provider for all the cases present in csv file
 	 * Based on 'whattorun' value in config.properties, performAction() method will be called
 	 */
+	@Features("Test Method")
+	@Stories("Data provider Consumer")
+	@Severity(SeverityLevel.CRITICAL)
+	@Title("API Calls")
+	@Description("Description: All types of calls")
 	@Test(dataProvider = "csvdataprovider",dataProviderClass=DataProviderClass.class)
 	public void testRequest(String test_id, String test_step, String suite, String action, String data){
 		

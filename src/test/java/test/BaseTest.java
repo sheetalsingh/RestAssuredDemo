@@ -1,5 +1,6 @@
 package test;
 
+import org.testng.SkipException;
 import org.testng.annotations.*;
 import data.DataProviderClass;
 import helper.ReadPropertyFile;
@@ -70,7 +71,8 @@ public class BaseTest {
 			if(isRunSuitePresent){
 				performAction(action, data);
 			}else{
-				System.out.println("Dont report this @test");
+				System.out.println("########### Dont report this @test");
+				throw new SkipException("SUITE NOT MATCHING.....");
 			}
 			
 		}else if (whatToRun.equals("testids")) {
@@ -79,7 +81,8 @@ public class BaseTest {
 			if(isRunTestIdPresent){
 				performAction(action, data);
 			}else{
-				System.out.println("Dont report this @test");
+				System.out.println("########### Dont report this @test");
+				throw new SkipException("SUITE NOT MATCHING.....");
 			}
 			
 		}else{
@@ -109,6 +112,10 @@ public class BaseTest {
 	
 	
 	
+	@BeforeMethod
+	public void beforeMeth(){
+		
+	}
 		
 }
 

@@ -107,12 +107,19 @@
 				<version>2.19.1</version>
 				<configuration>
 					<testFailureIgnore>true</testFailureIgnore>
+				
 					<argLine>
 						-javaagent:${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar
 					</argLine>
 					<!-- commented as correct count is not coming <properties> <property> 
 						<name>listener</name> <value>ru.yandex.qatools.allure.testng.AllureTestListener</value> 
 						</property> </properties> -->
+					
+					<!-- TestNG suite XML files -->
+					<suiteXmlFiles>
+						<suiteXmlFile>testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
+					
 				</configuration>
 				<dependencies>
 					<dependency>

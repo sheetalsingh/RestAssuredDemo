@@ -1,10 +1,14 @@
 package test;
 
+import org.testng.IHookCallBack;
+import org.testng.IHookable;
+import org.testng.ITestResult;
 import org.testng.SkipException;
 import org.testng.annotations.*;
 import data.DataProviderClass;
 import helper.ReadPropertyFile;
 import helper.RestMe;
+import helper.TestListeners;
 //import io.restassured.RestAssured;
 import io.restassured.response.Response;
 //import static io.restassured.RestAssured.*;
@@ -18,14 +22,18 @@ import ru.yandex.qatools.allure.model.SeverityLevel;
 import java.util.Arrays;
 import java.util.Map;
 
+import javax.xml.ws.RespectBinding;
+
 /**
- * 
  *	assumptions:
- *	headers will remain fixed for all calls
+ *	headers will remain fixed for all calls hence reading from config.properties file
+ *
+ *	@author sheetalsingh
+ *	@date Feb 2017
  */
 @Title("Base Test Class")
 @Description("Description: Common class for all API tests")
-public class BaseTest {
+public class BaseTest implements IHookable {
 	RestMe restme;
 	Response response;
 	String jsonString;
@@ -102,9 +110,9 @@ public class BaseTest {
 	public void performAction(String action, String data){
 		
 		switch (action.toUpperCase()) {
-		case "GET": restme.getMe(data);break;
+		case "GET": restme.getMe(data,"token");break;
 		case "POST": restme.postMe(data);break;
-		case "DELETE":restme.deleteMe(data); break;
+		case "DELETE":restme.deleteMe(data,"token"); break;
 		default: throw new IllegalStateException("Given action name(http methods) in csv are not matching with any of the existing action name");
 		}
 	
@@ -112,9 +120,49 @@ public class BaseTest {
 	
 	
 	
-	@BeforeMethod
-	public void beforeMeth(){
+	
+	
+	
+	
+
+	/**
+	 * Read all data provider values and delete 
+	 * hard coded to suite only
+	 */
+	@Override
+	public void run(IHookCallBack callBack, ITestResult testResult) {
+		Object[] parms = callBack.getParameters();
 		
+		if(whatToRun.equals("suite")){
+			String [] testsuitestorun = propertyMap.get("testsuitestorun").split(",");
+			boolean isRunSuitePresent = Arrays.asList(testsuitestorun).contains(parms[2]);
+			
+			if(isRunSuitePresent){
+				callBack.runTestMethod(testResult);
+			}else{
+				testResult.setAttribute("disabled", true); //set attribute to all condition based skipped test
+				throw new SkipException("skipping test");
+			}
+		}else if (whatToRun.equals("testids")) {
+			String [] testidstorun = propertyMap.get("testidstorun").split(",");
+			boolean isRunTestIdPresent = Arrays.asList(testidstorun).contains(parms[0]);
+			
+			if(isRunTestIdPresent){
+				callBack.runTestMethod(testResult);
+			}else{
+				testResult.setAttribute("disabled", true); //set attribute to all condition based skipped test
+				throw new SkipException("skipping test");
+			}
+			
+		}
+		
+		
+//		if (!parms[2].equals("reg")) {
+//			testResult.setAttribute("disabled", true); //set attribute to all condition based skipped test
+//			throw new SkipException("skipping test");
+//		} else {
+//			callBack.runTestMethod(testResult);
+//		}
 	}
 		
 }

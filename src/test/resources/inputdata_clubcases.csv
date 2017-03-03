@@ -1,0 +1,10 @@
+test_id,test_step,suite,action,data(url-path#content-type#status-code#list_of_parameters_pipe_separated)
+club_case_1,user sends a POST request,reg,POST,/json/Accounts/#application/json; charset=utf-8#400#Wfsemail:abc@gmail.com!Wfsepassword:x@123
+club_case_1,user sends a GET request,reg,GET,/json/Accounts/#application/json; charset=utf-8#400
+club_case_1,user sends a DELETE request,reg,DELETE,/json/Accounts/#application/json; charset=utf-8#400
+club_case_2,user sends a POST request,reg,POST,/json/Accounts/#application/json; charset=utf-8#400#Wfsemail:abc@yahoo.com!Wfsepassword:x@123
+club_case_2,user sends a GET request,reg,GET,/json/Accounts/#application/json; charset=utf-8#400
+club_case_2,user sends a DELETE request,reg,DELETE,/json/Accounts/#application/json; charset=utf-8#400
+club_case_3,user sends a POST request,reg,POST,/json/Accounts/#application/json; charset=utf-8#400#Wfsemail:abc@rediffmail.com!Wfsepassword:x@123
+club_case_3,user sends a GET request,reg,GET,/json/Accounts/#application/json; charset=utf-8#400
+club_case_3,user sends a DELETE request,reg,DELETE,/json/Accounts/#application/json; charset=utf-8#400

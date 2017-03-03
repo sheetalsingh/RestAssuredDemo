@@ -27,10 +27,7 @@ public class CSVDataProvider {
 	private static Object[][] data = null;
 
 	/**
-	 * This method will return test case file path i.e. src/test/resources/
-	 * 
-	 * file separator used so that same code would work in windows m/c where
-	 * file separator is \
+	 * This method will return test case file path i.e. src/test/resources/inputdata.csv
 	 */
 	private static String getPath(String fileName) {
 		String path = System.getProperty("user.dir") + Constants.TEST_CASES_PATH;
@@ -62,6 +59,7 @@ public class CSVDataProvider {
 	
 
 	/**
+	 * 	This method will read csv's five column data and give back [rows][5] 2D array
 	 *  columns : test_id,test_step,suite,action,data
 	 */
 	public static Object[][] getCSVData(String fileName) {

@@ -20,7 +20,9 @@ To-do:
 7. handle multiple parameters using HashMap  - DONE
 8. report - allure or any other - DONE
 9. run post-get-delete cases > handle in present case only
-10. reporting when particular cases/suite run - FAIL (reporting run all cases present in sheet giving false report)
+10. reporting when particular cases/suite run - FAIL (reporting run all cases present in sheet giving false report)  - 50%
+	removing skipped test from report - implemented iHookable working fine in TestNG, but Allure is not updating  
+	Also mvn command not updating testng report, only running using testng.xml updates the testng report
 
 
 #Info:

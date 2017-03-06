@@ -21,14 +21,11 @@ import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
 /**
- * 
  * Rest class will contains all GET, POST, DELETE etc methods
  * 
  * @author sheetalsingh
  * @date Feb 2017
- * https://developer.android.com/reference/org/json/JSONObject.html
- * 
- * todo: handle xml object, we can return common object for both type
+ * refer: https://developer.android.com/reference/org/json/JSONObject.html
  */
 public class RestMe {
 
@@ -54,7 +51,7 @@ public class RestMe {
 		headervalue2 = propertyMap.get("headervalue2");
 		
 
-		//create request obj for headers(fixed) not for parameters(changing)
+		//create request obj for headers(which are fixed) not for parameters(which are changing)
 		requestBuilder = new RequestSpecBuilder();
 		requestBuilder.addParam(headerkey1, headervalue1);
 		requestBuilder.addParam(headerkey2, headervalue2);
@@ -131,7 +128,10 @@ public class RestMe {
 	}
 	
 	
-	
+	/**
+	 * Not using as of now
+	 * Can be used to write JSON output into a file for further reference
+	 */
 	public void writeFile(String path, String content) {
 		try {
 

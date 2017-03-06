@@ -33,7 +33,7 @@ import javax.xml.ws.RespectBinding;
  */
 @Title("Base Test Class")
 @Description("Description: Common class for all API tests")
-public class BaseTest implements IHookable {
+public class BaseTest {
 	RestMe restme;
 	Response response;
 	String jsonString;
@@ -118,52 +118,6 @@ public class BaseTest implements IHookable {
 	
 	}
 	
-	
-	
-	
-	
-	
-	
-
-	/**
-	 * Read all data provider values and delete 
-	 * hard coded to suite only
-	 */
-	@Override
-	public void run(IHookCallBack callBack, ITestResult testResult) {
-		Object[] parms = callBack.getParameters();
-		
-		if(whatToRun.equals("suite")){
-			String [] testsuitestorun = propertyMap.get("testsuitestorun").split(",");
-			boolean isRunSuitePresent = Arrays.asList(testsuitestorun).contains(parms[2]);
-			
-			if(isRunSuitePresent){
-				callBack.runTestMethod(testResult);
-			}else{
-				testResult.setAttribute("disabled", true); //set attribute to all condition based skipped test
-				throw new SkipException("skipping test");
-			}
-		}else if (whatToRun.equals("testids")) {
-			String [] testidstorun = propertyMap.get("testidstorun").split(",");
-			boolean isRunTestIdPresent = Arrays.asList(testidstorun).contains(parms[0]);
-			
-			if(isRunTestIdPresent){
-				callBack.runTestMethod(testResult);
-			}else{
-				testResult.setAttribute("disabled", true); //set attribute to all condition based skipped test
-				throw new SkipException("skipping test");
-			}
-			
-		}
-		
-		
-//		if (!parms[2].equals("reg")) {
-//			testResult.setAttribute("disabled", true); //set attribute to all condition based skipped test
-//			throw new SkipException("skipping test");
-//		} else {
-//			callBack.runTestMethod(testResult);
-//		}
-	}
 		
 }
 

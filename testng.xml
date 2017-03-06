@@ -4,6 +4,7 @@
 
 	<listeners>
 		<listener class-name="helper.TestListeners" />
+		<listener class-name="helper.IHookableListener" />
 	</listeners>
 
 	<test name="Test">

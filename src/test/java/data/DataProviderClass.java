@@ -33,7 +33,7 @@ public class DataProviderClass {
 	 * todo: dummy excel data 
 	 * @return
 	 */
-	@DataProvider(name = "getdatafromexcel")
+	@DataProvider(name = "excelldataprovider")
 	public static Object[][] getDataFromExcel(){
 		return CSVDataProvider.getCSVData("dummyexcelfile.xls");
 	}
